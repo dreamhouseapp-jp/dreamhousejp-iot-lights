@@ -1,11 +1,10 @@
 # DreamHouse Connected Lights Server
 
+This is a development-time HTTPS proxy server for the Philips Hue Bridge. The Hue Bridge doesn't currently support HTTPS access. As a workaround, you can send HTTPS requests to this server which will then send your requests to the Hue Bridge using HTTP. This allows you to send requests to the Bridge from pages loaded using HTTPS (like Visualforce pages). This server allows you to test your application locally but is not suitable for a real-life deployment. For a real-life deployment, you'd need the Hue [Remote API](http://www.developers.meethue.com/content/remote-api) that is currently in beta.
+
 ## Prerequisites
 
 To run this sample application, you need a Philips Hue Bridge and at least one bulb connected to the bridge. Follow the instructions in the Philips Hue [Getting Started](http://www.developers.meethue.com/documentation/getting-started) to create a bridge user.
-
-## Local Environment
-This server allows you to test your application locally but is not suitable for a real-life deployment. Fot a real-life deployment, you'd need the Hue [Remote API](http://www.developers.meethue.com/content/remote-api) that is currently in beta.
 
 ## Installation Steps
 
