@@ -1,0 +1,5 @@
+node_modules/
+.idea
+cert.pem
+key.pem
+setenv.sh

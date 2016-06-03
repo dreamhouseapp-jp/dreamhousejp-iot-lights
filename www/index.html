@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <style>
+        input[type=range]{
+            -webkit-appearance: none;
+            width:400px;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 500px;
+            height: 1px;
+            background: #ddd;
+            border: none;
+            border-radius: 3px;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            border: none;
+            height: 24px;
+            width: 16px;
+            border-radius: 2px;
+            background: goldenrod;
+            margin-top: -12px;
+        }
+
+        input[type=range]:focus {
+            outline: none;
+        }
+
+        input[type=range]:focus::-webkit-slider-runnable-track {
+            background: #ccc;
+        }
+
+        .row {
+            display: table-row
+        }
+        .cell {
+            display: table-cell;
+            padding: 8px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="sliders"></div>
+
+<script src="jquery.js"></script>
+
+<script>
+
+    var LIGHTS_URL="https://localhost:55555";
+
+    function lightChange(event) {
+        $.ajax({url: LIGHTS_URL + "/lights/" + event.target.dataset.id, method: "PUT", data: JSON.stringify({bri: event.target.value}), contentType: "application/json"});
+    }
+
+    $.ajax(LIGHTS_URL + "/lights")
+        .done(function(data) {
+            var html="";
+            for (var property in data) {
+                if (data.hasOwnProperty(property)) {
+                    html = html + "<div class='row'><div class='cell'>" + data[property].name + "</div><div class='cell'><input min='0' max='255' data-id='" + property + "' type='range' value='"+ data[property].state.bri + "' onchange='lightChange(event)'/></div></div>";
+                }
+            }
+            document.getElementById("sliders").innerHTML = html;
+        })
+        .fail(function(xhr, errorText, error) {
+            console.log(error);
+        });
+
+</script>
+
+</body>
+</html>
