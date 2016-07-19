@@ -1,52 +1,54 @@
-# DreamHouse Connected Lights Server
+# DreamHouse スマートライトサーバー
 
-This is a development-time HTTPS proxy server for the Philips Hue Bridge. The Hue Bridge doesn't currently support HTTPS access. As a workaround, you can send HTTPS requests to this server which will then send your requests to the Hue Bridge using HTTP. This allows you to send requests to the Bridge from pages loaded using HTTPS (like Visualforce pages). This server allows you to test your application locally but is not suitable for a real-life deployment. For a real-life deployment, you'd need the Hue [Remote API](http://www.developers.meethue.com/content/remote-api) that is currently in beta.
+これは、Philips Hue ブリッジに対応する開発時用の HTTP プロキシサーバーです。Hue ブリッジは現在、HTTPS アクセスに対応していません。その対策として、HTTPS リクエストをこのサーバーに送信することができます。このサーバーで受信したリクエストは、HTTP を使用して Hue ブリッジに送られます。これにより、HTTPS を使用して読み込まれるページ（Visualforce のページなど）からブリッジに対してリクエストを送信できます。このサーバーを使用することで、ローカルでのアプリケーションのテストができますが、実生活環境に導入するには適していません。実生活環境に導入する場合は、Hue [リモート API](http://www.developers.meethue.com/content/remote-api) が必要になりますが、これは現在、ベータ版です。
 
-## Prerequisites
+## 前提条件
 
-To run this sample application, you need a Philips Hue Bridge and at least one bulb connected to the bridge. Follow the instructions in the Philips Hue [Getting Started](http://www.developers.meethue.com/documentation/getting-started) to create a bridge user.
+このサンプルアプリケーションを実行するには、 Philips Hue ブリッジと、そのブリッジに接続するランプが 1 つ以上必要です。Philips Hue の「[Getting Started](http://www.developers.meethue.com/documentation/getting-started)（英語）」ページの記載に従って、ブリッジユーザーを作成します。
 
-## Installation Steps
+## インストール手順
 
-1. Clone this repository:
-
-    ```
-    git clone https://github.com/dreamhouseapp/dreamhouse-iot-lights
-    ```
-    
-1. Navigate to the `dreamhouse-lights` directory:
+1. リポジトリをクローン（複製）します。
 
     ```
-    cd dreamhouse-iot-lights
+    git clone https://github.com/dreamhouseapp-jp/dreamhousejp-iot-lights
     ```
 
-1. Install the project dependencies:
+1. `dreamhousejp-lights` ディレクトリに移動します。
+
+    ```
+    cd dreamhousejp-iot-lights
+    ```
+
+1. プロジェクトの依存関係をインストールします。
 
     ```
     npm install
     ```
 
-1. Generate self-signed certificates to run the HTTPS server. For example, on a Mac, type the following command:
+1. HTTPS サーバーを実行するための自己署名証明書を生成します。たとえば Mac の場合は、次のコマンドを入力します。
 
     ```
     openssl req -nodes -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365
     ```
 
-1. Open a browser and access the following URL to get the IP address of the Hue bridge on your network: [https://www.meethue.com/api/nupnp](https://www.meethue.com/api/nupnp)
+1. ブラウザを開き、次の URL にアクセスして、ネットワーク上の Hue ブリッジの IP アドレスを取得します。
+[https://www.meethue.com/api/nupnp](https://www.meethue.com/api/nupnp)
 
-1. On the command line, type the following commands to define the environment variables used by the Node server. Replace the URL and user with your own values. If you haven't already done so, refer to the [Getting Started](http://www.developers.meethue.com/documentation/getting-started) to create a bridge user.
-    
+1. コマンドラインで次のコマンドを入力して、ノードサーバーで使用する環境変数を定義します。URL とユーザーは、実際の環境に合わせて置き換えてください。まだブリッジユーザーを作成していない場合は、「[Getting Started](http://www.developers.meethue.com/documentation/getting-started)（英語）」ページを参照して作成します。
+
     ```
     export HUE_BRIDGE_URL=http://192.168.1.5
     export HUE_BRIDGE_USER=1028d66426293e821ecfd9ef1a0731df
     ```
-    
-1. Start the server:
-      
+
+1. サーバーを起動します。
+
     ```
     node server
     ```
-    
-1. Open a browser, and access the following URL to test your local environment: [https://localhost:55555](https://localhost:55555).
-    
-1. You can now control the lights using the SmartHome component in the Salesforce1 mobile app or in Salesforce in the browser.
+
+1. ブラウザを開き、次の URL にアクセスしてローカルの環境をテストします。
+[https://localhost:55555](https://localhost:55555)
+
+1. これで、Salesforce1 モバイルアプリの SmartHome コンポーネントまたはブラウザの Salesforce で照明を制御できます。
